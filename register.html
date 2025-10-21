@@ -27,7 +27,7 @@
 
                 <div class="input-group">
                     <label for="phone">Teléfono</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+56 9 1234 5678">
+                    <input type="tel" id="phone" name="phone" placeholder="+57 3115530039">
                 </div>
 
                 <div class="input-group">
@@ -37,7 +37,8 @@
 
                 <div class="input-group">
                     <label for="role">Tipo de cuenta</label>
-                    <select id="role" name="role">
+                    <select id="role" name="role" required>
+                        <option value="" disabled selected>Selecciona tipo de cuenta</option>
                         <option value="applicant">Postulante</option>
                         <option value="company">Empresa</option>
                     </select>
@@ -60,7 +61,7 @@
 
                 <div class="input-group" style="display:flex;align-items:center;gap:10px;">
                     <input type="checkbox" id="terms" name="terms">
-                    <label for="terms" style="margin:0;color:#d1d1d1;font-size:14px;">Acepto los <a href="#">términos y condiciones</a></label>
+                    <label for="terms" style="margin:0;font-size:14px;">Acepto los <a href="#">términos y condiciones</a></label>
                 </div>
 
                 <button type="submit">Crear cuenta</button>

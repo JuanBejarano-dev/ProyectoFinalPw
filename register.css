@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Krub:wght@300;400;600&display=swap');
 
-/* Base reset and font */
 * {
     margin: 0;
     padding: 0;
@@ -8,14 +7,13 @@
     font-family: 'Krub', sans-serif;
 }
 
-/* Page background inherits existing design */
 body {
     min-height: 100vh;
     background: linear-gradient(120deg, #0d1723, #1e2d42);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 16px; /* allow breathing room on small screens */
+    padding: 40px 16px; 
 }
 
 .background-image {
@@ -40,11 +38,11 @@ body {
 .container-form {
     width: 520px;
     max-width: 100%;
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    padding: 34px 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 34px 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     animation: fadeIn 0.7s ease;
 }
 
@@ -69,7 +67,7 @@ body {
 }
 
 .input-group label {
-    color: #d1d1d1;
+    color: #000000;
     font-size: 13px;
     margin-bottom: 6px;
 }
@@ -82,9 +80,20 @@ body {
     border: none;
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.12);
-    color: #fff;
+    color: #000000;
     font-size: 15px;
     transition: all 0.22s ease;
+}
+
+.formulario select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #0b1220 50%), linear-gradient(135deg, #0b1220 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 40px; 
 }
 
 .formulario input::placeholder {
@@ -98,7 +107,6 @@ body {
     box-shadow: 0 0 6px rgba(76, 175, 80, 0.22);
 }
 
-/* File input styling - graceful fallback for browsers */
 .formulario input[type="file"] {
     padding: 8px 10px;
     background: rgba(255,255,255,0.06);
@@ -154,11 +162,9 @@ body {
     z-index: 2;
 }
 
-/* Small helper messages */
 .hint { color: rgba(255,255,255,0.7); font-size: 13px; }
 .error { color: #ff7b7b; font-size: 13px; }
 
-/* Responsive adjustments */
 @media (max-width: 900px) {
     .container-form { width: 460px; padding: 30px; }
 }
