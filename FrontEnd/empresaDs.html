@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Empresa - Empleo Corredor Ecológico</title>
+    <link rel="stylesheet" href="empresaDs.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Dashboard Empresa</h1>
+        <div class="user-info">
+            <span id="nombreEmpresa">Cargando...</span>
+            <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="stats">
+            <div class="stat-card">
+                <h3 id="totalVacantes">0</h3>
+                <p>Vacantes Publicadas</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalPostulaciones">0</h3>
+                <p>Postulaciones Recibidas</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="vacantesActivas">0</h3>
+                <p>Vacantes Activas</p>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="cambiarTab('crear')">➕ Crear Vacante</button>
+            <button class="tab" onclick="cambiarTab('mis-vacantes')">📋 Mis Vacantes</button>
+            <button class="tab" onclick="cambiarTab('postulaciones')">👥 Postulaciones</button>
+        </div>
+
+        <div id="tab-crear" class="tab-content active">
+            <div class="card">
+                <h2>Crear Nueva Vacante</h2>
+                <form id="formCrearVacante">
+                    <div class="form-group">
+                        <label>Título del Puesto *</label>
+                        <input type="text" id="titulo" required placeholder="Ej: Ingeniero Ambiental Senior">
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción del Trabajo *</label>
+                        <textarea id="descripcion" required placeholder="Describe las responsabilidades, requisitos y beneficios..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Ubicación *</label>
+                        <input type="text" id="ubicacion" required placeholder="Ej: Bucaramanga, Santander">
+                    </div>
+                    <div class="form-group">
+                        <label>Salario (opcional)</label>
+                        <input type="number" id="salario" placeholder="Ej: 3500000">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Contrato *</label>
+                        <select id="tipo_contrato" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="Tiempo completo">Tiempo completo</option>
+                            <option value="Medio tiempo">Medio tiempo</option>
+                            <option value="Por proyecto">Por proyecto</option>
+                            <option value="Temporal">Temporal</option>
+                            <option value="Prácticas">Prácticas</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Publicar Vacante</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="tab-mis-vacantes" class="tab-content">
+            <div class="card">
+                <h2>Mis Vacantes Publicadas</h2>
+                <div id="listaVacantes"></div>
+            </div>
+        </div>
+
+        <div id="tab-postulaciones" class="tab-content">
+            <div class="card">
+                <h2>Postulaciones por Vacante</h2>
+                <div id="listaPostulaciones"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalPostulaciones" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitulo">Postulaciones</h2>
+                <button class="modal-close" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div id="modalContenido"></div>
+        </div>
+    </div>
+
+    <script src="empresaDs.js"></script>
+</body>
+</html>
