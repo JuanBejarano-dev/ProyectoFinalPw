@@ -25,7 +25,7 @@ function verificarSesion() {
 
     if (usuario.tipo_usuario !== 'empresa') {
         alert('Esta página es solo para empresas');
-        window.location.href = 'dashboard-postulante.html';
+        window.location.href = 'postulanteDs.html';
         return;
     }
 

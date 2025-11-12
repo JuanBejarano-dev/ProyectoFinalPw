@@ -26,7 +26,7 @@ body {
 
 .navbar h1 {
     font-size: 24px;
-    color: #4CAF50;
+    color: #2196F3;
 }
 
 .navbar .user-info {
@@ -66,7 +66,7 @@ body {
 }
 
 .stat-card {
-    background: rgba(76, 175, 80, 0.2);
+    background: rgba(33, 150, 243, 0.2);
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -80,7 +80,7 @@ body {
 .stat-card h3 {
     font-size: 32px;
     margin-bottom: 10px;
-    color: #4CAF50;
+    color: #2196F3;
 }
 
 .stat-card p {
@@ -110,8 +110,8 @@ body {
 }
 
 .tab.active {
-    border-bottom-color: #4CAF50;
-    color: #4CAF50;
+    border-bottom-color: #2196F3;
+    color: #2196F3;
 }
 
 .tab:hover {
@@ -139,7 +139,38 @@ body {
 
 .card h2 {
     margin-bottom: 20px;
-    color: #4CAF50;
+    color: #2196F3;
+}
+
+/* Filtros */
+.filtros {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filtros input,
+.filtros select {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    font-size: 14px;
+}
+
+.filtros input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.filtros input:focus,
+.filtros select:focus {
+    outline: none;
+    background: rgba(255,255,255,0.15);
+    box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
 }
 
 /* Formularios */
@@ -155,24 +186,22 @@ body {
 }
 
 .form-group input,
-.form-group textarea,
-.form-group select {
+.form-group textarea {
     width: 100%;
     padding: 10px;
     border: none;
     border-radius: 5px;
     background: rgba(255,255,255,0.1);
-    color: #000000;
+    color: #fff;
     font-size: 14px;
     transition: all 0.3s;
 }
 
 .form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
+.form-group textarea:focus {
     outline: none;
     background: rgba(255,255,255,0.15);
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
 }
 
 .form-group textarea {
@@ -183,6 +212,11 @@ body {
 .form-group input::placeholder,
 .form-group textarea::placeholder {
     color: rgba(255, 255, 255, 0.5);
+}
+
+.form-group input[readonly] {
+    background: rgba(255,255,255,0.05);
+    cursor: not-allowed;
 }
 
 /* Botones */
@@ -197,11 +231,21 @@ body {
 }
 
 .btn-primary {
-    background: #4CAF50;
+    background: #2196F3;
     color: white;
 }
 
 .btn-primary:hover {
+    background: #0b7dda;
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-success:hover {
     background: #45a049;
     transform: translateY(-2px);
 }
@@ -216,16 +260,6 @@ body {
     transform: translateY(-2px);
 }
 
-.btn-secondary {
-    background: #2196F3;
-    color: white;
-}
-
-.btn-secondary:hover {
-    background: #0b7dda;
-    transform: translateY(-2px);
-}
-
 .btn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -237,7 +271,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 15px;
-    border-left: 4px solid #4CAF50;
+    border-left: 4px solid #2196F3;
     transition: transform 0.3s;
 }
 
@@ -247,7 +281,7 @@ body {
 
 .vacante-item h3 {
     margin-bottom: 10px;
-    color: #4CAF50;
+    color: #2196F3;
 }
 
 .vacante-item p {
@@ -262,6 +296,23 @@ body {
     flex-wrap: wrap;
 }
 
+.vacante-detalle {
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.vacante-detalle h3 {
+    color: #2196F3;
+    margin-bottom: 10px;
+}
+
+.vacante-detalle p {
+    margin: 8px 0;
+    font-size: 14px;
+}
+
 /* Badges */
 .badge {
     display: inline-block;
@@ -269,16 +320,6 @@ body {
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
-}
-
-.badge-active {
-    background: #4CAF50;
-    color: white;
-}
-
-.badge-closed {
-    background: #f44336;
-    color: white;
 }
 
 .badge-pending {
@@ -293,6 +334,11 @@ body {
 
 .badge-rejected {
     background: #f44336;
+    color: white;
+}
+
+.badge-active {
+    background: #4CAF50;
     color: white;
 }
 
@@ -367,7 +413,7 @@ body {
 }
 
 .modal-header h2 {
-    color: #4CAF50;
+    color: #2196F3;
     font-size: 20px;
 }
 
@@ -401,12 +447,12 @@ body {
 }
 
 .modal-content::-webkit-scrollbar-thumb {
-    background: #4CAF50;
+    background: #2196F3;
     border-radius: 10px;
 }
 
 .modal-content::-webkit-scrollbar-thumb:hover {
-    background: #45a049;
+    background: #0b7dda;
 }
 
 /* Responsive */
@@ -450,6 +496,15 @@ body {
 
     .stats {
         grid-template-columns: 1fr;
+    }
+
+    .filtros {
+        flex-direction: column;
+    }
+
+    .filtros input,
+    .filtros select {
+        width: 100%;
     }
 }
 

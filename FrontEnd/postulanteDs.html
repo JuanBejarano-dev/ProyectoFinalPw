@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Postulante - Empleo Corredor Ecológico</title>
+    <link rel="stylesheet" href="postulanteDs.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Dashboard Postulante</h1>
+        <div class="user-info">
+            <span id="nombrePostulante">Cargando...</span>
+            <button class="btn-logout" onclick="cerrarSesion()">Cerrar Sesión</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="stats">
+            <div class="stat-card">
+                <h3 id="totalPostulaciones">0</h3>
+                <p>Postulaciones Enviadas</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalAceptadas">0</h3>
+                <p>Postulaciones Aceptadas</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalPendientes">0</h3>
+                <p>En Proceso</p>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="cambiarTab('vacantes')">🔍 Buscar Vacantes</button>
+            <button class="tab" onclick="cambiarTab('mis-postulaciones')">📋 Mis Postulaciones</button>
+            <button class="tab" onclick="cambiarTab('perfil')">👤 Mi Perfil</button>
+        </div>
+
+        <div id="tab-vacantes" class="tab-content active">
+            <div class="card">
+                <h2>Vacantes Disponibles</h2>
+                <div class="filtros">
+                    <input type="text" id="buscarVacante" placeholder="Buscar por título o ubicación..." onkeyup="filtrarVacantes()">
+                    <select id="filtroTipo" onchange="filtrarVacantes()">
+                        <option value="">Todos los tipos</option>
+                        <option value="Tiempo completo">Tiempo completo</option>
+                        <option value="Medio tiempo">Medio tiempo</option>
+                        <option value="Por proyecto">Por proyecto</option>
+                        <option value="Temporal">Temporal</option>
+                        <option value="Prácticas">Prácticas</option>
+                    </select>
+                </div>
+                <div id="listaVacantes"></div>
+            </div>
+        </div>
+
+        <div id="tab-mis-postulaciones" class="tab-content">
+            <div class="card">
+                <h2>Mis Postulaciones</h2>
+                <div id="listaPostulaciones"></div>
+            </div>
+        </div>
+
+        <div id="tab-perfil" class="tab-content">
+            <div class="card">
+                <h2>Mi Perfil</h2>
+                <form id="formPerfil">
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" id="perfil_nombre" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" id="perfil_email" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="perfil_telefono">
+                    </div>
+                    <div class="form-group">
+                        <label>Ubicación</label>
+                        <input type="text" id="perfil_ubicacion">
+                    </div>
+                    <div class="form-group">
+                        <label>CV Actual</label>
+                        <p id="cvActual" style="color: #4CAF50; margin: 5px 0;"></p>
+                        <input type="file" id="perfil_cv" accept="application/pdf">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para postularse -->
+    <div id="modalPostular" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitulo">Postularse a Vacante</h2>
+                <button class="modal-close" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div id="modalContenido">
+                <form id="formPostular">
+                    <input type="hidden" id="postular_id_vacante">
+                    <div class="vacante-detalle" id="vacanteDetalle"></div>
+                    <div class="form-group">
+                        <label>Mensaje para la empresa (opcional)</label>
+                        <textarea id="postular_mensaje" placeholder="Cuéntale a la empresa por qué eres el candidato ideal..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Postulación</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="postulanteDs.js"></script>
+</body>
+</html>

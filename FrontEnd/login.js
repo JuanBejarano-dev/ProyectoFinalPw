@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     window.location.href = 'empresaDs.html';
                 } else {
                     // Redirigir a dashboard de postulante
-                    window.location.href = 'dashboard-postulante.html';
+                    window.location.href = 'postulanteDs.html';
                 }
                 
             } else {
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (usuario.tipo_usuario === 'empresa') {
                 window.location.href = 'empresaDs.html';
             } else {
-                window.location.href = 'dashboard-postulante.html';
+                window.location.href = 'postulanteDs.html';
             }
         }
     }
