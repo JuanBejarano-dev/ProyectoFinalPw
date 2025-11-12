@@ -34,7 +34,7 @@ function verificarSesion() {
 
 async function cargarDatosEmpresa() {
     try {
-        const response = await fetch(`http://localhost:3000/api/empresas/usuario/${usuario.id_usuario}`);
+        const response = await fetch(`${config.apiUrl}/api/empresas/usuario/${usuario.id_usuario}`);
         const data = await response.json();
 
         if (data.success) {
@@ -51,7 +51,7 @@ async function cargarVacantes() {
     if (!empresa) return;
 
     try {
-        const response = await fetch(`http://localhost:3000/api/vacantes/empresa/${empresa.id_empresa}`);
+        const response = await fetch(`${config.apiUrl}/api/vacantes/empresa/${empresa.id_empresa}`);
         const data = await response.json();
 
         if (data.success) {
@@ -142,7 +142,7 @@ document.getElementById('formCrearVacante').addEventListener('submit', async fun
     };
 
     try {
-        const response = await fetch('http://localhost:3000/api/vacantes', {
+        const response = await fetch(`${config.apiUrl}/api/vacantes`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(vacanteData)
@@ -172,7 +172,7 @@ async function cambiarEstadoVacante(id, nuevoEstado) {
     if (!confirm(`¿Deseas ${nuevoEstado === 'cerrada' ? 'cerrar' : 'reactivar'} esta vacante?`)) return;
 
     try {
-        const response = await fetch(`http://localhost:3000/api/vacantes/${id}`, {
+        const response = await fetch(`${config.apiUrl}/api/vacantes/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ estado: nuevoEstado })
@@ -197,7 +197,7 @@ async function eliminarVacante(id) {
     if (!confirm('¿Estás seguro de eliminar esta vacante? Esta acción no se puede deshacer.')) return;
 
     try {
-        const response = await fetch(`http://localhost:3000/api/vacantes/${id}`, {
+        const response = await fetch(`${config.apiUrl}/api/vacantes/${id}`, {
             method: 'DELETE'
         });
 
@@ -218,7 +218,7 @@ async function eliminarVacante(id) {
 
 async function verPostulaciones(idVacante, tituloVacante) {
     try {
-        const response = await fetch(`http://localhost:3000/api/postulaciones/vacante/${idVacante}`);
+        const response = await fetch(`${config.apiUrl}/api/postulaciones/vacante/${idVacante}`);
         const data = await response.json();
 
         if (data.success) {
@@ -275,7 +275,7 @@ function cerrarModal() {
 
 async function cambiarEstadoPostulacion(id, estado) {
     try {
-        const response = await fetch(`http://localhost:3000/api/postulaciones/${id}`, {
+        const response = await fetch(`${config.apiUrl}/api/postulaciones/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ estado })
@@ -309,7 +309,7 @@ async function cargarTodasPostulaciones() {
 
     for (const vacante of vacantes) {
         try {
-            const response = await fetch(`http://localhost:3000/api/postulaciones/vacante/${vacante.id_vacante}`);
+            const response = await fetch(`${config.apiUrl}/api/postulaciones/vacante/${vacante.id_vacante}`);
             const data = await response.json();
 
             if (data.success && data.data.length > 0) {

@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             // Enviar credenciales al servidor
-            const response = await fetch('http://localhost:3000/api/usuarios/login', {
+            const response = await fetch(`${config.apiUrl}/api/usuarios/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

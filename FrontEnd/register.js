@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             // Enviar datos al servidor
-            const response = await fetch('http://localhost:3000/api/usuarios/registro', {
+            const response = await fetch(`${config.apiUrl}/api/usuarios/registro`, {
                 method: 'POST',
                 body: formData
             });

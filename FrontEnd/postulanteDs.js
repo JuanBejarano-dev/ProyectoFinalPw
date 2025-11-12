@@ -36,7 +36,7 @@ function verificarSesion() {
 
 async function cargarVacantes() {
     try {
-        const response = await fetch('http://localhost:3000/api/vacantes');
+        const response = await fetch(`${config.apiUrl}/api/vacantes`);
         const data = await response.json();
 
         if (data.success) {
@@ -109,7 +109,7 @@ function filtrarVacantes() {
 
 async function verDetalleVacante(idVacante) {
     try {
-        const response = await fetch(`http://localhost:3000/api/vacantes/${idVacante}`);
+        const response = await fetch(`${config.apiUrl}/api/vacantes/${idVacante}`);
         const data = await response.json();
 
         if (data.success) {
@@ -168,7 +168,7 @@ document.getElementById('formPostular').addEventListener('submit', async functio
     };
 
     try {
-        const response = await fetch('http://localhost:3000/api/postulaciones', {
+        const response = await fetch(`${config.apiUrl}/api/postulaciones`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(postulacionData)
@@ -197,7 +197,7 @@ document.getElementById('formPostular').addEventListener('submit', async functio
 
 async function cargarMisPostulaciones() {
     try {
-        const response = await fetch(`http://localhost:3000/api/postulaciones/postulante/${usuario.id_usuario}`);
+        const response = await fetch(`${config.apiUrl}/api/postulaciones/postulante/${usuario.id_usuario}`);
         const data = await response.json();
 
         if (data.success) {
@@ -281,7 +281,7 @@ document.getElementById('formPerfil').addEventListener('submit', async function(
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/${usuario.id_usuario}`, {
+        const response = await fetch(`${config.apiUrl}/api/usuarios/${usuario.id_usuario}`, {
             method: 'PUT',
             body: formData
         });
