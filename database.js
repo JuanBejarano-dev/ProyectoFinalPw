@@ -1,11 +1,10 @@
 require('dotenv').config();
 const mysql = require('mysql2');
 
-// Parsear la MYSQL_PUBLIC_URL manualmente
-const url = process.env.MYSQL_PUBLIC_URL;
+const url = process.env.MYSQL_URL || process.env.MYSQL_PUBLIC_URL;
 
 if (!url) {
-    console.error('❌ MYSQL_PUBLIC_URL no está definida');
+    console.error('❌ MYSQL_URL no está definida');
     process.exit(1);
 }
 
