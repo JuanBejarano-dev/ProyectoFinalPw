@@ -806,6 +806,11 @@ app.get('/api/empresas/usuario/:id_usuario', async (req, res) => {
     }
 });
 
+// Ruta raíz -> redirige al login
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'FrontEnd', 'login.html'));
+});
+
 // MANEJO DE ERRORES
 
 // Ruta no encontrada
@@ -828,6 +833,6 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor corriendo en ${PORT}`);
     console.log(`Base de datos: empleo_corredor`);
 });
