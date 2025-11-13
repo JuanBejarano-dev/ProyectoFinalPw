@@ -1,14 +1,15 @@
 require('dotenv').config();
 const mysql = require('mysql2');
 
-const connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined
-});
+const connection = mysql.createConnection(
+    process.env.MYSQL_PUBLIC_URL || {
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        port: process.env.DB_PORT || 3306
+    }
+);
 
 connection.connect((err) => {
     if (err) {
@@ -16,6 +17,7 @@ connection.connect((err) => {
         return;
     }
     console.log('Conexión a la base de datos establecida.');
+    console.log('Base de datos:', process.env.DB_NAME || 'railway');
 });
 
 module.exports = connection;
