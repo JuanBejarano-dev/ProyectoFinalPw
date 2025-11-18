@@ -4,6 +4,7 @@ const path = require('path');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
 const{ connect } = require('http2');
+const fs = require('fs');
 
 const app = express();
 
@@ -34,7 +35,9 @@ const upload = multer({
     }
 });
 
-// CREATE - Registrar nuevo usuario
+// CRUD DE USUARIOS
+
+// CREATE - Registro de nuevo usuario
 app.post('/api/usuarios/registro', upload.single('cv'), async (req, res) => {
     try {
         const { nombre_completo, email, telefono, ubicacion, tipo_usuario, contrasena } = req.body;
@@ -63,14 +66,19 @@ app.post('/api/usuarios/registro', upload.single('cv'), async (req, res) => {
         // Encriptar contraseña
         const hashedPassword = await bcrypt.hash(contrasena, 10);
 
-        // Obtener ruta del CV si existe
-        const cvPath = req.file ? req.file.filename : null;
+        // Convertir CV a Base64
+        let cvBase64 = null;
+        if (req.file) {
+            const fileBuffer = fs.readFileSync(req.file.path);
+            cvBase64 = fileBuffer.toString('base64');
+            fs.unlinkSync(req.file.path); // Eliminar archivo temporal
+        }
 
         // Insertar usuario
         const [result] = await connection.promise().query(
-            `INSERT INTO usuarios (nombre_completo, email, telefono, ubicacion, tipo_usuario, contraseña, cv)
+            `INSERT INTO usuarios (nombre_completo, email, telefono, ubicacion, tipo_usuario, contraseña, cv_data)
             VALUES (?, ?, ?, ?, ?, ?, ?)`,
-            [nombre_completo, email, telefono, ubicacion, tipo_usuario, hashedPassword, cvPath]
+            [nombre_completo, email, telefono, ubicacion, tipo_usuario, hashedPassword, cvBase64]
         );
 
         // Si es empresa, crear registro en tabla empresas
