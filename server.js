@@ -178,6 +178,39 @@ app.get('/api/usuarios/:id', async (req, res) => {
     }
 });
 
+app.get('/api/usuarios/:id/cv', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const [usuario] = await connection.promise().query(
+            'SELECT cv, nombre_completo FROM usuarios WHERE id_usuario = ?',
+            [id]
+        );
+
+        if (usuario.length === 0 || !usuario[0].cv) {
+            return res.status(404).json({
+                success: false,
+                message: 'CV no encontrado'
+            });
+        }
+
+        // Convertir Base64 de vuelta a buffer
+        const pdfBuffer = Buffer.from(usuario[0].cv, 'base64');
+
+        // Configurar headers para PDF
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `inline; filename="CV_${usuario[0].nombre_completo}.pdf"`);
+        res.send(pdfBuffer);
+
+    } catch (error) {
+        console.error('Error al obtener CV:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error al obtener CV'
+        });
+    }
+});
+
 // UPDATE - Actualizar usuario
 app.put('/api/usuarios/:id', upload.single('cv'), async (req, res) => {
     try {
