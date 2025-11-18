@@ -8,6 +8,12 @@ const fs = require('fs');
 
 const app = express();
 
+const uploadsDir = path.join(__dirname, 'uploads', 'cvs');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+    console.log('Carpeta uploads/cvs creada');
+}
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'FrontEnd')));
 app.use(express.urlencoded({ extended: true }));
