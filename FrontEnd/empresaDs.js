@@ -255,7 +255,7 @@ function mostrarModalPostulaciones(postulaciones, titulo) {
                 </div>
                 ${p.mensaje ? `<p style="margin: 10px 0; font-style: italic; color: #ddd;">"${p.mensaje}"</p>` : ''}
                 <p style="font-size: 12px; color: #888;">Postulado: ${new Date(p.fecha_postulacion).toLocaleString()}</p>
-                ${p.cv ? `<p><a href="http://localhost:3000/uploads/cvs/${p.cv}" target="_blank" class="btn btn-secondary" style="display: inline-block; margin-top: 10px; text-decoration: none;">📄 Ver CV</a></p>` : ''}
+                ${p.cv ? `<p><a href="${config.apiUrl}/api/usuarios/${p.id_usuario}/cv" target="_blank" class="btn btn-secondary" style="display: inline-block; margin-top: 10px; text-decoration: none;">📄 Ver CV</a></p>` : ''}
                 <div style="margin-top: 10px; display: flex; gap: 10px;">
                     ${p.estado_postulacion === 'pendiente' ? `
                         <button class="btn btn-primary" onclick="cambiarEstadoPostulacion(${p.id_postulacion}, 'aceptado')">✅ Aceptar</button>
