@@ -82,7 +82,7 @@ app.post('/api/usuarios/registro', upload.single('cv'), async (req, res) => {
 
         // Insertar usuario
         const [result] = await connection.promise().query(
-            `INSERT INTO usuarios (nombre_completo, email, telefono, ubicacion, tipo_usuario, contraseña, cv_data)
+            `INSERT INTO usuarios (nombre_completo, email, telefono, ubicacion, tipo_usuario, contraseña, cv)
             VALUES (?, ?, ?, ?, ?, ?, ?)`,
             [nombre_completo, email, telefono, ubicacion, tipo_usuario, hashedPassword, cvBase64]
         );
