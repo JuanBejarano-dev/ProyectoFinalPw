@@ -751,7 +751,7 @@ app.get('/api/postulaciones/vacante/:id_vacante', async (req, res) => {
         const { id_vacante } = req.params;
 
         const [postulaciones] = await connection.promise().query(
-            `SELECT p.*, u.nombre_completo, u.email, u.telefono, u.ubicacion, u.cv,
+            `SELECT p.*, u.nombre_completo, u.email, u.telefono, u.ubicacion, u.cv, u.id_usuario,
                     p.fecha_postulacion, p.estado as estado_postulacion, p.mensaje
             FROM postulaciones p
             INNER JOIN usuarios u ON p.id_postulante = u.id_usuario
