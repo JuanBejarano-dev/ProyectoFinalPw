@@ -1,65 +1,56 @@
 require('dotenv').config();
 const mysql = require('mysql2');
 
-// Intentar con cualquier variable disponible
-const url = process.env.MYSQL_URL || process.env.MYSQL_PUBLIC_URL;
-
-console.log('🔍 Variables disponibles:');
-console.log('MYSQL_URL:', !!process.env.MYSQL_URL);
-console.log('MYSQL_PUBLIC_URL:', !!process.env.MYSQL_PUBLIC_URL);
-console.log('DB_HOST:', process.env.DB_HOST);
+// Parsear la MYSQL_URL manualmente
+const url = process.env.MYSQL_URL;
 
 if (!url) {
-    console.error('❌ No hay URL de MySQL disponible, usando fallback');
-    // Fallback a variables individuales
-    const connection = mysql.createConnection({
-        host: process.env.DB_HOST || 'mysql.railway.internal',
-        port: parseInt(process.env.DB_PORT || '3306'),
-        user: process.env.DB_USER || 'root',
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME || 'railway',
-        connectTimeout: 60000
-    });
-    
-    connection.connect((err) => {
-        if (err) {
-            console.error('❌ Error:', err.message);
-            return;
-        }
-        console.log('✅ Conectado con variables individuales');
-    });
-    
-    module.exports = connection;
-} else {
-    // Parsear URL
-    const match = url.match(/mysql:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/);
-    
-    if (!match) {
-        console.error('❌ URL inválida');
-        module.exports = null;
+    console.error('❌ MYSQL_URL no está definida');
+    process.exit(1);
+}
+
+const match = url.match(/mysql:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/);
+
+if (!match) {
+    console.error('❌ URL inválida');
+    process.exit(1);
+}
+
+const [, user, password, host, port, database] = match;
+
+console.log('🔧 Configurando pool de conexiones a:', host, 'puerto:', port, 'base:', database);
+
+// Crear POOL de conexiones en lugar de conexión simple
+const pool = mysql.createPool({
+    host: host,
+    port: parseInt(port),
+    user: user,
+    password: password,
+    database: database,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+    connectTimeout: 60000,
+    enableKeepAlive: true,
+    keepAliveInitialDelay: 10000
+});
+
+// Verificar conexión inicial
+pool.getConnection((err, connection) => {
+    if (err) {
+        console.error('❌ Error al conectar:', err.message);
         return;
     }
-    
-    const [, user, password, host, port, database] = match;
-    
-    console.log('🔧 Conectando a:', host, 'puerto:', port);
-    
-    const connection = mysql.createConnection({
-        host: host,
-        port: parseInt(port),
-        user: user,
-        password: password,
-        database: database,
-        connectTimeout: 60000
-    });
-    
-    connection.connect((err) => {
-        if (err) {
-            console.error('❌ Error:', err.message);
-            return;
-        }
-        console.log('✅ Conectado a MySQL');
-    });
-    
-    module.exports = connection;
-}
+    console.log('✅ Pool de conexiones MySQL establecido');
+    connection.release();
+});
+
+// Manejar errores del pool
+pool.on('error', (err) => {
+    console.error('❌ Error en pool de MySQL:', err);
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        console.log('⚠️ Conexión perdida, el pool creará una nueva automáticamente');
+    }
+});
+
+module.exports = pool;
